@@ -1,26 +1,27 @@
 import { Injectable } from '@nestjs/common';
-import { CreatePdfDto } from './dto/create-pdf.dto';
-import { UpdatePdfDto } from './dto/update-pdf.dto';
+import * as PDFDocument from 'pdfkit';
 
 @Injectable()
-export class PdfService {
-  create(createPdfDto: CreatePdfDto) {
-    return 'This action adds a new pdf';
-  }
+export class PDFService {
+  async generatePDF(): Promise<Buffer> {
+    const pdfBuffer: Buffer = await new Promise((resolve) => {
+      const doc = new PDFDocument({
+        size: [1600, 1190],
+        bufferPages: true,
+      });
 
-  findAll() {
-    return `This action returns all pdf`;
-  }
+      // customize your PDF document
+      doc.text('hello world', 100, 50);
+      doc.end();
 
-  findOne(id: number) {
-    return `This action returns a #${id} pdf`;
-  }
+      const buffer = [];
+      doc.on('data', buffer.push.bind(buffer));
+      doc.on('end', () => {
+        const data = Buffer.concat(buffer);
+        resolve(data);
+      });
+    });
 
-  update(id: number, updatePdfDto: UpdatePdfDto) {
-    return `This action updates a #${id} pdf`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} pdf`;
+    return pdfBuffer;
   }
 }

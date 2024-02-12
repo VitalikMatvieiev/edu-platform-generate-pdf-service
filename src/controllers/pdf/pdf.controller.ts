@@ -1,43 +1,28 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-} from '@nestjs/common';
-import { PdfService } from '../../services/pdf/pdf.service';
-import { CreatePdfDto } from '../../services/pdf/dto/create-pdf.dto';
-import { UpdatePdfDto } from '../../services/pdf/dto/update-pdf.dto';
+import { Controller, Get, Res } from '@nestjs/common';
+import { Response } from 'express';
+import { PDFService } from '../../services/pdf/pdf.service';
 
 //http://localhost:3001/api/pdf
 @Controller('pdf')
 export class PdfController {
-  constructor(private readonly pdfService: PdfService) {}
+  constructor(private readonly pdfService: PDFService) {}
 
-  @Post()
-  create(@Body() createPdfDto: CreatePdfDto) {
-    return this.pdfService.create(createPdfDto);
+  @Get('/download')
+  async getPDF(@Res() res: Response): Promise<void> {
+    const buffer = await this.pdfService.generatePDF();
+
+    res.set({
+      'Content-Type': 'application/pdf',
+      'Content-Disposition': 'attachment; filename=example.pdf',
+      'Content-Length': buffer.length,
+    });
+
+    res.end(buffer);
   }
 
-  @Get()
-  findAll() {
-    return this.pdfService.findAll();
-  }
-
+  /*
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.pdfService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePdfDto: UpdatePdfDto) {
-    return this.pdfService.update(+id, updatePdfDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.pdfService.remove(+id);
-  }
+  }*/
 }
