@@ -1,6 +1,7 @@
-import { Controller, Get, Res } from '@nestjs/common';
+import { Controller, Get,HttpCode, HttpStatus, UsePipes, Res, ValidationPipe, Body } from '@nestjs/common';
 import { Response } from 'express';
 import { PDFService } from '../../services/pdf/pdf.service';
+import { GeneratePdfDto } from 'src/services/dto/generate-pdf.dto';
 
 //http://localhost:3001/api/pdf
 @Controller('pdf')
@@ -8,8 +9,16 @@ export class PdfController {
   constructor(private readonly pdfService: PDFService) {}
 
   @Get('/download')
-  async getPDF(@Res() res: Response): Promise<void> {
-    const buffer = await this.pdfService.generatePDF();
+  @HttpCode(HttpStatus.OK)
+  @UsePipes(
+    new ValidationPipe({
+      whitelist: true,
+      transform: true,
+      forbidNonWhitelisted: true,
+    }),
+  )
+  async getPDF(@Res() res: Response, @Body() generatePdfDto: GeneratePdfDto): Promise<void> {
+    const buffer = await this.pdfService.generatePdf(generatePdfDto);
 
     res.set({
       'Content-Type': 'application/pdf',
