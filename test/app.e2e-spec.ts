@@ -3,10 +3,10 @@ import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { AppModule } from '../src/application/app.module';
 
-describe('AppController (e2e)', () => {
+describe('PdfController (e2e)', () => {
   let app: INestApplication;
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
     }).compile();
@@ -15,10 +15,21 @@ describe('AppController (e2e)', () => {
     await app.init();
   });
 
-  it('/ (GET)', () => {
+  it('/pdf/download (GET)', () => {
     return request(app.getHttpServer())
-      .get('/')
-      .expect(200)
-      .expect('Hello World!');
+      .get('/pdf/download')
+      .send({
+        userName: 'Vladyslav',
+        userSurname: 'Mykolyshyn',
+        instructorName: 'Vitalik',
+        instructorSurname: 'Matvieiev',
+        durationOfCourse: 10,
+      })
+      .expect(201)
+      .expect('Content-Type', 'application/pdf');
+  });
+
+  afterAll(async () => {
+    await app.close();
   });
 });

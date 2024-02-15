@@ -6,6 +6,7 @@ import { GeneratePdfDto } from '../dto/generate-pdf.dto';
 export class PdfService {
   async generatePdf(generatePdfSchema: GeneratePdfDto): Promise<Buffer> {
     const { userName, userSurname, instructorName, instructorSurname, durationOfCourse } = generatePdfSchema;
+    
     const userFullName = `${userName} ${userSurname}`;
     const instructorFullName = `${instructorName} ${instructorSurname}`
     const courseDuration = `${durationOfCourse} Total hours`

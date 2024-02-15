@@ -1,7 +1,7 @@
 import { Controller, Get,HttpCode, HttpStatus, UsePipes, Res, ValidationPipe, Body } from '@nestjs/common';
 import { Response } from 'express';
 import { PdfService } from '../../services/pdf/pdf.service';
-import { GeneratePdfDto } from 'src/services/dto/generate-pdf.dto';
+import { GeneratePdfDto } from '../../services/dto/generate-pdf.dto';
 
 //http://localhost:3001/api/pdf
 @Controller('pdf')
