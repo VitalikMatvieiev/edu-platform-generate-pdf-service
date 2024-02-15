@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { PdfModule } from '../services/pdf/pdf.module';
+import { PdfModule } from '../modules/pdf/pdf.module';
 
 @Module({
   imports: [PdfModule],

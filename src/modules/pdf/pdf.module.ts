@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { PdfService } from './pdf.service';
+import { PdfService } from '../../services/pdf/pdf.service';
 import { PdfController } from '../../controllers/pdf/pdf.controller';
 
 @Module({

@@ -7,17 +7,9 @@ export class GeneratePdfDto {
 
   @IsNotEmpty()
   @IsString()
-  userSurname: string;
-
-  @IsNotEmpty()
-  @IsString()
   instructorName: string;
 
   @IsNotEmpty()
-  @IsString()
-  instructorSurname: string;
-
-  @IsNotEmpty()
   @IsNumber()
-  durationOfCourse: number;
+  durationOfCourseInHours: number;
 }

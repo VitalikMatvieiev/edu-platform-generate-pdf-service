@@ -5,11 +5,9 @@ import { GeneratePdfDto } from '../dto/generate-pdf.dto';
 @Injectable()
 export class PdfService {
   async generatePdf(generatePdfSchema: GeneratePdfDto): Promise<Buffer> {
-    const { userName, userSurname, instructorName, instructorSurname, durationOfCourse } = generatePdfSchema;
+    const { userName, instructorName, durationOfCourseInHours } = generatePdfSchema;
     
-    const userFullName = `${userName} ${userSurname}`;
-    const instructorFullName = `${instructorName} ${instructorSurname}`
-    const courseDuration = `${durationOfCourse} Total hours`
+    const courseDuration = `${durationOfCourseInHours} Total hours`;
 
     const pdfBuffer: Buffer = await new Promise((resolve) => {
       const currentDate = new Date();
@@ -68,13 +66,13 @@ export class PdfService {
         .fillColor('#242527') 
         .font('Times-Bold')
         .fontSize(8) 
-        .text(instructorFullName, 90, 215);
+        .text(instructorName, 90, 215);
 
       doc
         .fillColor('#1c1d1f')
         .font('Helvetica-Bold')
-        .fontSize(20) 
-        .text(userFullName, 50, 280);
+        .fontSize(20)
+        .text(userName, 50, 280);
 
       doc
         .fillColor('#858688') 

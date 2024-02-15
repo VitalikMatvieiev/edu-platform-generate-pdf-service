@@ -27,11 +27,9 @@ describe('PdfController', () => {
     };
 
     const generatePdfDto = {
-      userName: 'Vladyslav',
-      userSurname: 'Mykolyshyn',
-      instructorName: 'Vitalik',
-      instructorSurname: 'Matvieiev',
-      durationOfCourse: 10,
+      userName: 'Vladyslav Mykolyshyn',
+      instructorName: 'Vitalik Matvieiev',
+      durationOfCourseInHours: 10,
     };
 
     const pdfBuffer = Buffer.from('Mock PDF Buffer');

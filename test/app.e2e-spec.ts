@@ -15,15 +15,13 @@ describe('PdfController (e2e)', () => {
     await app.init();
   });
 
-  it('/pdf/download (GET)', () => {
+  it('/pdf/create-and-return (GET)', () => {
     return request(app.getHttpServer())
-      .get('/pdf/download')
+      .get('/pdf/create-and-return')
       .send({
-        userName: 'Vladyslav',
-        userSurname: 'Mykolyshyn',
-        instructorName: 'Vitalik',
-        instructorSurname: 'Matvieiev',
-        durationOfCourse: 10,
+        userName: 'Vladyslav Mykolyshyn',
+        instructorName: 'Vitalik Matvieiev',
+        durationOfCourseInHours: 10,
       })
       .expect(201)
       .expect('Content-Type', 'application/pdf');
