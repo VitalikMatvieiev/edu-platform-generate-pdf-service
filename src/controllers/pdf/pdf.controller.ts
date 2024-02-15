@@ -1,15 +1,15 @@
 import { Controller, Get,HttpCode, HttpStatus, UsePipes, Res, ValidationPipe, Body } from '@nestjs/common';
 import { Response } from 'express';
-import { PDFService } from '../../services/pdf/pdf.service';
+import { PdfService } from '../../services/pdf/pdf.service';
 import { GeneratePdfDto } from 'src/services/dto/generate-pdf.dto';
 
 //http://localhost:3001/api/pdf
 @Controller('pdf')
 export class PdfController {
-  constructor(private readonly pdfService: PDFService) {}
+  constructor(private readonly pdfService: PdfService) {}
 
   @Get('/download')
-  @HttpCode(HttpStatus.OK)
+  @HttpCode(HttpStatus.CREATED)
   @UsePipes(
     new ValidationPipe({
       whitelist: true,

@@ -3,7 +3,7 @@ import * as PDFDocument from 'pdfkit';
 import { GeneratePdfDto } from '../dto/generate-pdf.dto';
 
 @Injectable()
-export class PDFService {
+export class PdfService {
   async generatePdf(generatePdfSchema: GeneratePdfDto): Promise<Buffer> {
     const { userName, userSurname, instructorName, instructorSurname, durationOfCourse } = generatePdfSchema;
     const userFullName = `${userName} ${userSurname}`;
