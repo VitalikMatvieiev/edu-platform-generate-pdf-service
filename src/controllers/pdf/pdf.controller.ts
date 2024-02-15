@@ -22,16 +22,10 @@ export class PdfController {
 
     res.set({
       'Content-Type': 'application/pdf',
-      'Content-Disposition': 'attachment; filename=example.pdf',
+      'Content-Disposition': 'attachment; filename=certificate.pdf',
       'Content-Length': buffer.length,
     });
 
     res.end(buffer);
   }
-
-  /*
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.pdfService.findOne(+id);
-  }*/
 }
